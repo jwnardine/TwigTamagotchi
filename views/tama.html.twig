@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>Name your Tamagotchi!!</title>
+</head>
+<body>
+    <h1>Here are your Tamagotchis!</h1>
+    {% if gotchis is not empty %}
+    <ul>
+    {% for gotchi in gotchis %}
+        <h3>{{ gotchi.getName }}</h3>
+        <li>{{ gotchi.getFood }}</li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form action='/tama' method='post'>
+
+        <div class='form-group'>
+          <label for='name'>Enter your Tamagotchi's name:</label>
+          <input id='name' name='name' type='text'>
+        </div>
+
+
+        <button type='submit'>Add Job</button>
+    </form>
+
+    <form action='/delete_tama' method='post'>
+        <button type='submit'>Clear</button>
+    </form>
+
+</body>
+</html>

@@ -1,11 +1,11 @@
 <?php
     require_once __DIR__."/../vendor/autoload.php";
-    require_once __DIR__."/../src/Jobs.php";
+    require_once __DIR__."/../src/Tamagotchis.php";
 
     session_start();
 
-    if (empty($_SESSION['list_of_jobs'])) {
-            $_SESSION['list_of_jobs'] = array();
+    if (empty($_SESSION['list_of_tamagotchis'])) {
+            $_SESSION['list_of_tamagotchis'] = array();
         }
 
     $app = new Silex\Application();
@@ -16,19 +16,19 @@
 
     $app->get("/", function() use ($app) {
 
-        return $app['twig']->render('jobs.html.twig', array('jobs' => Jobs::getAll()));
+        return $app['twig']->render('tama.html.twig', array('tamas' => Tama::getAll()));
 
       });
 
-      $app->post("/jobs", function() use ($app) {
-          $jobs = new Jobs($_POST['title'], $_POST['salary'], $_POST['desc']);
-          $jobs->save();
-          return $app['twig']->render('create_jobs.html.twig', array('newjob' => $jobs));
+      $app->post("/tama", function() use ($app) {
+          $tamagotchi = new Tama($_POST['name']);
+          $tamagotchi->save();
+          return $app['twig']->render('create_tama.html.twig', array('newtama' => $tamagotchi));
       });
 
-          $app->post("/delete_jobs", function() use ($app) {
-          Jobs::deleteAll();
-          return $app['twig']->render('delete_jobs.html.twig');
+          $app->post("/delete_tama", function() use ($app) {
+          Tama::deleteAll();
+          return $app['twig']->render('delete_tama.html.twig');
       });
 
     return $app;
