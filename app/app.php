@@ -20,13 +20,22 @@
 
       });
 
-      $app->post("/tama", function() use ($app) {
+      $app->post("/create_tama", function() use ($app) {
           $tamagotchi = new Tama($_POST['name']);
           $tamagotchi->save();
           return $app['twig']->render('create_tama.html.twig', array('newtama' => $tamagotchi));
-      });
+        });
 
-          $app->post("/delete_tama", function() use ($app) {
+        $app->post("/feed_tama", function() use ($app) {
+          foreach($tama as $key => $value)
+          {
+          $tama[$key]['food'] .= (10 + $value['food']);
+          }
+
+            return $app['twig']->render('tama.html.twig');
+        });
+
+      $app->post("/delete_tama", function() use ($app) {
           Tama::deleteAll();
           return $app['twig']->render('delete_tama.html.twig');
       });

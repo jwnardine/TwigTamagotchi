@@ -55,6 +55,10 @@ class Tama
         //     return $this->sleep;
         // }
 
+        // function feedTamagotchi() {
+        //   return $this->getFood() + 10;
+        // }
+
 
         function save()
         {
